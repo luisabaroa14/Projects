@@ -1,1 +1,1 @@
-include ':app', ':firebase', ':cameraview', ':chat', ':mychat'
+include ':app', ':firebase', ':cameraview', ':chat', ':login', ':mylogin'

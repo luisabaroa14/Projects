@@ -12,7 +12,8 @@
             <option value="$PROJECT_DIR$/cameraview" />
             <option value="$PROJECT_DIR$/chat" />
             <option value="$PROJECT_DIR$/firebase" />
-            <option value="$PROJECT_DIR$/mychat" />
+            <option value="$PROJECT_DIR$/login" />
+            <option value="$PROJECT_DIR$/mylogin" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
