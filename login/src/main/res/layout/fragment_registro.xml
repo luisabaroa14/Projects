@@ -1,0 +1,65 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_layout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.login.RegistroFragment">
+
+    <LinearLayout
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registro"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="40sp"/>
+
+        <EditText
+            android:id="@+id/et_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:hint="Usuario"
+            android:textColor="#fff"
+            android:textSize="30sp"/>
+
+        <EditText
+            android:id="@+id/et_contraseña"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:inputType="textPassword"
+            android:hint="Contraseña"
+            android:textColor="#fff"
+            android:textSize="30sp"/>
+
+        <EditText
+            android:id="@+id/et_rContraseña"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:hint="Repetir contraseña"
+            android:textColor="#fff"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/btn_registrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Registrar"
+            android:textSize="40sp"/>
+
+    </LinearLayout>
+
+</FrameLayout>
