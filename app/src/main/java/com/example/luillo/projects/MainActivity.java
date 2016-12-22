@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        toolbar.setTitleTextColor(Color.WHITE);
 
         img = (ImageView) findViewById(R.id.img);
-        btnCamera = (Button) findViewById(R.id.btn_camera);
+//        btnCamera = (Button) findViewById(R.id.btn_camera);
 
 
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 
 
-        if (R.id.btn_camera == view.getId()){
+//        if (R.id.btn_camera == view.getId()){
             dispatchTakePictureIntent();
         }
 
@@ -66,6 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                .replace(R.id.frame_layout, )
 //                .commit();
     }
-}
+
 
 
