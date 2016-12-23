@@ -2,10 +2,12 @@ package com.example.firebase;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +32,9 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "myLog";
 
@@ -36,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseUser mFirebaseUser;
 
     public String mUsername;
-   public String mPhotoUrl;
+    public String mPhotoUrl;
     String date;
     String time;
 
@@ -48,13 +54,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton sendBtn;
     EditText etMessage;
 
-    Object obj;
+    private AdView mAdView;
+
 
     private RecyclerView recyclerView;
     final List<FriendlyMessage> friendlyMessageList = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
 
-    FriendlyMessage messages = new FriendlyMessage();
 
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
@@ -74,6 +80,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         getDate();
 
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         sendBtn = (ImageButton) findViewById(R.id.send_btn);
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 FriendlyMessage friendlyMessage2 = new
                         FriendlyMessage(mUsername,
                         mPhotoUrl,
-                        etMessage.getText().toString(),date,time
+                        etMessage.getText().toString(), date, time
                 );
                 mFirebaseDatabaseReference.child("messages")
                         .push().setValue(friendlyMessage2);
@@ -124,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+
         initViews();
 
 
@@ -131,15 +142,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-              Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 //                Log.v(TAG,"Before" +friendlyMessageList.toString() );
                 friendlyMessageList.clear();
 
-                for (DataSnapshot child: children) {
+                for (DataSnapshot child : children) {
                     FriendlyMessage messages = child.getValue(FriendlyMessage.class);
-
-
-
 
 
                     friendlyMessageList.add(messages);
@@ -148,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
 //                Log.v(TAG,"After" +friendlyMessageList.toString() );
-
 
 
             }
@@ -161,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 //
-
 
 
 //        mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage,
@@ -220,9 +226,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        });
 
 
-
-
     }
+
+
+
 
     private void initViews() {
 
@@ -270,8 +277,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int minute = c.get(Calendar.MINUTE);
         int hour = c.get(Calendar.HOUR);
         date = day + "/" + month + "/" + year;
-        time= hour + ":" + minute;
+        time = hour + ":" + minute;
     }
+
 
 
     @Override
@@ -280,5 +288,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.v(TAG, "clicky");
             signOut();
         }
+    }
+
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    /** Called when returning to the activity */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 }

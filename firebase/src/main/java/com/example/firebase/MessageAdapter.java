@@ -53,7 +53,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         getDate();
 
 
-        if (mDate != null) {
+
+
+
+        if (mDate == null) {
 
             holder.Date.setText(friendlyMessage.getDate());
         } else {
@@ -81,6 +84,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     .into(holder.PhotoUrl);
         }
     }
+
+
 
     private void getDate() {
 
@@ -118,7 +123,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 @Override
                 public void onClick(View view) {
 
-                    mDate = null;
+                    mDate = "true";
 
                 }
             });
