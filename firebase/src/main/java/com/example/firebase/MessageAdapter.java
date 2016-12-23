@@ -3,7 +3,6 @@ package com.example.firebase;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -24,6 +22,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
 
     String date2;
+
+    String mDate ;
 
     private List<FriendlyMessage> friendlyMessageList;
     Context context;
@@ -51,26 +51,35 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
 
         getDate();
-        holder.Date.setText(date2);
+
+
+        if (mDate != null) {
+
+            holder.Date.setText(friendlyMessage.getDate());
+        } else {
+            holder.Date.setText(friendlyMessage.getTime());
+        }
+
+
+        if (friendlyMessage.getPhotoUrl() == null)
+
+        {
+            holder.PhotoUrl
+                    .setImageDrawable(ContextCompat
+                            .getDrawable(context,
+                                    R.mipmap.user));
+        } else
+
+        {
 
 
 
-//        if (friendlyMessage.getPhotoUrl() == null)
-//
-//        {
-//            holder.PhotoUrl
-//                    .setImageDrawable(ContextCompat
-//                            .getDrawable(context,
-//                                    R.mipmap.user));
-//        } else
-//
-//        {
-//            Glide.with(context)
-//                    .load(friendlyMessage.getPhotoUrl())
-//                    .asGif()
-////                            .load(mPhotoUrl)
-//                    .into(holder.PhotoUrl);
-//        }
+
+            Glide.with(context)
+                    .load(friendlyMessage.getPhotoUrl())
+//                            .load(mPhotoUrl)
+                    .into(holder.PhotoUrl);
+        }
     }
 
     private void getDate() {
@@ -82,7 +91,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         int minute = c.get(Calendar.MINUTE);
         int hour = c.get(Calendar.HOUR);
         String date = day + "/" + month + "/" + year;
-         date2 = hour + ":" + minute;
+        date2 = hour + ":" + minute;
     }
 
     @Override
@@ -104,7 +113,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             Message = (TextView) itemView.findViewById(R.id.tv_message);
             Date = (TextView) itemView.findViewById(R.id.tv_date);
             PhotoUrl = (ImageView) itemView.findViewById(R.id.img_photo);
-        }
+
+            Date.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    mDate = null;
+
+                }
+            });
 
 
 //        public void bindMessage(FriendlyMessage friendlyMessage) {
@@ -114,7 +131,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 ////            Date.setText(friendlyMessage.getDate());
 //
 //        }
+        }
+
+
     }
-
-
 }

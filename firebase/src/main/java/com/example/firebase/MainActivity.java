@@ -2,8 +2,6 @@ package com.example.firebase;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,11 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,11 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public String mUsername;
    public String mPhotoUrl;
+    String date;
+    String time;
 
     TextView Username;
     ImageView PhotoUrl;
@@ -77,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         etMessage = (EditText) findViewById(R.id.message_et);
 
+        getDate();
+
 
         sendBtn = (ImageButton) findViewById(R.id.send_btn);
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 FriendlyMessage friendlyMessage2 = new
                         FriendlyMessage(mUsername,
                         mPhotoUrl,
-                        etMessage.getText().toString()
+                        etMessage.getText().toString(),date,time
                 );
                 mFirebaseDatabaseReference.child("messages")
                         .push().setValue(friendlyMessage2);
@@ -135,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
 
               Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                Log.v(TAG,"Before" +friendlyMessageList.toString() );
+//                Log.v(TAG,"Before" +friendlyMessageList.toString() );
                 friendlyMessageList.clear();
 
                 for (DataSnapshot child: children) {
@@ -150,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                 }
-                Log.v(TAG,"After" +friendlyMessageList.toString() );
+//                Log.v(TAG,"After" +friendlyMessageList.toString() );
 
 
 
@@ -262,6 +259,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //                    }
 //                });
+    }
+
+    private void getDate() {
+
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH);
+        int year = c.get(Calendar.YEAR);
+        int minute = c.get(Calendar.MINUTE);
+        int hour = c.get(Calendar.HOUR);
+        date = day + "/" + month + "/" + year;
+        time= hour + ":" + minute;
     }
 
 

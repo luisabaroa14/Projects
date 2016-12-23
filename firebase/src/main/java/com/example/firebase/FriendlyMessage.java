@@ -10,15 +10,17 @@ public class FriendlyMessage {
     private String PhotoUrl;
     private String Message;
     private String Date;
+    private String Time;
 
-    public FriendlyMessage(String Username, String PhotoUrl, String Message){
+    public FriendlyMessage(String Username, String PhotoUrl, String Message, String Date, String Time) {
         this.Username = Username;
         this.PhotoUrl = PhotoUrl;
         this.Message = Message;
-//        this.Date = Date;
+        this.Date = Date;
+        this.Time = Time;
     }
 
-    public FriendlyMessage(){
+    public FriendlyMessage() {
 
     }
 
@@ -46,13 +48,21 @@ public class FriendlyMessage {
         Message = message;
     }
 
-//    public String getDate() {
-//        return Date;
-//    }
-//
-//    public void setDate(String date) {
-//        Date = date;
-//    }
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
 
 
     @Override
@@ -61,7 +71,10 @@ public class FriendlyMessage {
                 "Username='" + Username + '\'' +
                 ", PhotoUrl='" + PhotoUrl + '\'' +
                 ", Message='" + Message + '\'' +
+                ", Date='" + Date + '\'' +
+                ", Time='" + Time + '\'' +
                 '}';
     }
 }
+
 
