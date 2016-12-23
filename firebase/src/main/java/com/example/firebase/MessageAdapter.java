@@ -119,14 +119,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             Date = (TextView) itemView.findViewById(R.id.tv_date);
             PhotoUrl = (ImageView) itemView.findViewById(R.id.img_photo);
 
-            Date.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    mDate = "true";
 
-                }
-            });
+
+
 
 
 //        public void bindMessage(FriendlyMessage friendlyMessage) {
